@@ -5,6 +5,7 @@ import { ANNOUNCEMENTS, DOWNLOADS } from "@/lib/data";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import LayoutContainer from "@/components/ui/LayoutContainer";
 
 const ANN_TABS = ["All", "Notices", "Events", "Alerts"];
 
@@ -13,8 +14,6 @@ const TAG_COLORS: Record<string, { bg: string; text: string }> = {
   event:  { bg: "#3aa04a18", text: "#3aa04a" },
   alert:  { bg: "#fea50020", text: "#c47a00" },
 };
-
-import LayoutContainer from "@/components/ui/LayoutContainer";
 
 export default function AnnouncementsSection() {
   const [activeTab, setActiveTab] = useState(0);
@@ -26,7 +25,7 @@ export default function AnnouncementsSection() {
   });
 
   return (
-    <section className="py-16" style={{ background: "#e5e5e5" }} aria-labelledby="announcements-title">
+    <section style={{ background: "#e5e5e5", paddingTop: 64, paddingBottom: 64 }} aria-labelledby="announcements-title">
       <LayoutContainer>
         <SectionHeader
           eyebrow="News & Updates"
@@ -38,7 +37,7 @@ export default function AnnouncementsSection() {
           {/* Announcements */}
           <div className="lg:col-span-2">
             {/* Tabs */}
-            <div className="flex gap-0 border-b-2 border-[#ccc] mb-4" role="tablist">
+            <div className="flex border-b-2 border-[#ccc]" role="tablist" style={{ marginBottom: 16 }}>
               {ANN_TABS.map((t, i) => (
                 <button
                   key={t}
@@ -46,11 +45,12 @@ export default function AnnouncementsSection() {
                   aria-selected={activeTab === i}
                   onClick={() => setActiveTab(i)}
                   className={cn(
-                    "px-4 py-2 text-xs font-semibold border-b-[3px] -mb-0.5 transition-all",
+                    "text-xs font-semibold border-b-[3px] transition-all",
                     activeTab === i
                       ? "text-[#ff9f08] border-[#ff9f08]"
                       : "text-[#555] border-transparent hover:text-[#ff9f08]"
                   )}
+                  style={{ padding: "8px 16px", marginBottom: -2 }}
                 >
                   {t}
                 </button>
@@ -61,7 +61,8 @@ export default function AnnouncementsSection() {
               {filtered.map((ann, i) => (
                 <div
                   key={i}
-                  className="flex gap-4 px-4 py-3 hover:bg-white transition-all cursor-pointer group"
+                  className="flex hover:bg-white transition-all cursor-pointer group"
+                  style={{ gap: 16, padding: "12px 16px" }}
                 >
                   {/* Date badge */}
                   <div className="flex-shrink-0 w-12 h-14 bg-[#730068] flex flex-col items-center justify-center">
@@ -70,17 +71,19 @@ export default function AnnouncementsSection() {
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 min-w-0 py-1">
+                  <div className="flex-1 min-w-0" style={{ paddingTop: 4, paddingBottom: 4 }}>
                     <span
-                      className="inline-block text-xs font-bold uppercase tracking-wider px-2 py-0.5 mb-1.5"
+                      className="inline-block text-xs font-bold uppercase tracking-wider"
                       style={{
                         background: TAG_COLORS[ann.tagType]?.bg ?? "#f0f0f0",
                         color: TAG_COLORS[ann.tagType]?.text ?? "#555",
+                        padding: "2px 8px",
+                        marginBottom: 6,
                       }}
                     >
                       {ann.tag}
                     </span>
-                    <p className="text-sm font-semibold text-[#333] leading-snug mb-1 group-hover:text-[#ff6600] transition-colors">
+                    <p className="text-sm font-semibold text-[#333] leading-snug group-hover:text-[#ff6600] transition-colors" style={{ marginBottom: 4 }}>
                       {ann.title}
                     </p>
                     <p className="text-xs text-[#888]">{ann.meta}</p>
@@ -91,7 +94,7 @@ export default function AnnouncementsSection() {
               ))}
             </div>
 
-            <div className="mt-3">
+            <div style={{ marginTop: 12 }}>
               <Link href="/announcements" className="text-sm font-semibold flex items-center gap-1" style={{ color: "#ff6600" }}>
                 View all announcements <ArrowRight className="w-3.5 h-3.5" />
               </Link>
@@ -100,7 +103,10 @@ export default function AnnouncementsSection() {
 
           {/* Downloads */}
           <div>
-            <h3 className="text-sm font-bold text-[#333] mb-3 flex items-center gap-2 border-b-2 border-[#ff9f08] pb-2">
+            <h3
+              className="text-sm font-bold text-[#333] flex items-center gap-2 border-b-2 border-[#ff9f08]"
+              style={{ marginBottom: 12, paddingBottom: 8 }}
+            >
               <FileDown className="w-4 h-4" style={{ color: "#ff9f08" }} />
               Quick Downloads
             </h3>
@@ -109,7 +115,8 @@ export default function AnnouncementsSection() {
                 <a
                   key={i}
                   href="#"
-                  className="flex items-center gap-3 p-3 bg-[#f5f5f5] border border-[#d6d6d6] hover:border-[#ff9f08] hover:bg-white transition-all group"
+                  className="flex items-center bg-[#f5f5f5] border border-[#d6d6d6] hover:border-[#ff9f08] hover:bg-white transition-all group"
+                  style={{ gap: 12, padding: 12 }}
                 >
                   <div className="w-9 h-9 flex items-center justify-center flex-shrink-0" style={{ background: "#ff9f0818" }}>
                     <FileDown className="w-4 h-4" style={{ color: "#ff9f08" }} />
@@ -119,7 +126,7 @@ export default function AnnouncementsSection() {
                     <p className="text-xs text-[#888]">{dl.type} • {dl.size}</p>
                   </div>
                   {dl.tag && (
-                    <span className="text-xs font-bold px-2 py-0.5 flex-shrink-0" style={{ background: "#3aa04a18", color: "#3aa04a" }}>
+                    <span className="text-xs font-bold flex-shrink-0" style={{ background: "#3aa04a18", color: "#3aa04a", padding: "2px 8px" }}>
                       {dl.tag}
                     </span>
                   )}

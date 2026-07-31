@@ -9,21 +9,21 @@ const ICON_MAP: Record<string, React.ElementType> = {
 export default function DepartmentsPage() {
   return (
     <main className="min-h-screen" style={{ background: "#ededed" }}>
-      <div className="py-12" style={{ background: "#730068" }}>
-        <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px]">
-          <div className="text-white/50 text-xs mb-2 flex items-center gap-2">
+      <div style={{ background: "#730068", paddingTop: 48, paddingBottom: 48 }}>
+        <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px]" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24 }}>
+          <div className="text-white/50 text-xs flex items-center gap-2" style={{ marginBottom: 8 }}>
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <span className="text-white">Departments</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Academic Departments</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white" style={{ marginBottom: 8 }}>Academic Departments</h1>
           <p className="text-white/60 text-sm max-w-xl">
             Curated digital collections tailored to each academic faculty and discipline.
           </p>
         </div>
       </div>
 
-      <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] py-8">
+      <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px]" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24, paddingTop: 32, paddingBottom: 32 }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {DEPARTMENTS.map((dept) => {
             const Icon = ICON_MAP[dept.icon] ?? Cpu;
@@ -31,15 +31,15 @@ export default function DepartmentsPage() {
               <Link
                 key={dept.name}
                 href={`/departments/${dept.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
-                className="bg-[#f5f5f5] border border-[#d6d6d6] p-5 flex flex-col items-center text-center gap-3 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200 group"
-                style={{ borderTop: `8px solid ${dept.color}` }}
+                className="bg-[#f5f5f5] border border-[#d6d6d6] flex flex-col items-center text-center gap-3 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200 group"
+                style={{ borderTop: `8px solid ${dept.color}`, padding: 20 }}
               >
                 <div className="w-14 h-14 flex items-center justify-center" style={{ background: `${dept.color}18` }}>
                   <Icon className="w-7 h-7" style={{ color: dept.color }} />
                 </div>
                 <div>
-                  <h2 className="font-extrabold text-sm text-[#333] mb-3">{dept.name}</h2>
-                  <div className="flex gap-6 justify-center mb-3">
+                  <h2 className="font-extrabold text-sm text-[#333]" style={{ marginBottom: 12 }}>{dept.name}</h2>
+                  <div className="flex gap-6 justify-center" style={{ marginBottom: 12 }}>
                     <div>
                       <div className="text-base font-extrabold" style={{ color: dept.color }}>{dept.books}</div>
                       <div className="text-xs text-[#888] uppercase tracking-wider">Books</div>

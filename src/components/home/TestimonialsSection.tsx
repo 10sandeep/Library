@@ -1,12 +1,11 @@
 import { Star } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/data";
 import SectionHeader from "@/components/ui/SectionHeader";
-
 import LayoutContainer from "@/components/ui/LayoutContainer";
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-16" style={{ background: "#e5e5e5" }} aria-labelledby="testimonials-title">
+    <section style={{ background: "#e5e5e5", paddingTop: 64, paddingBottom: 64 }} aria-labelledby="testimonials-title">
       <LayoutContainer>
         <SectionHeader
           eyebrow="Testimonials"
@@ -17,17 +16,20 @@ export default function TestimonialsSection() {
           {TESTIMONIALS.map((t, i) => (
             <div
               key={i}
-              className="bg-[#f5f5f5] border border-[#d6d6d6] p-5 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200"
-              style={{ borderTop: "6px solid #ff9f08" }}
+              className="bg-[#f5f5f5] border border-[#d6d6d6] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200"
+              style={{ borderTop: "6px solid #ff9f08", padding: 20 }}
             >
               {/* Stars */}
-              <div className="flex gap-0.5 mb-3" aria-label={`${t.stars} out of 5 stars`}>
+              <div className="flex gap-0.5" aria-label={`${t.stars} out of 5 stars`} style={{ marginBottom: 12 }}>
                 {Array.from({ length: t.stars }).map((_, si) => (
                   <Star key={si} className="w-4 h-4 fill-[#ff9f08] text-[#ff9f08]" />
                 ))}
               </div>
               {/* Quote */}
-              <blockquote className="text-sm text-[#555] leading-relaxed mb-5 relative pl-4 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-[#ff9f08]">
+              <blockquote
+                className="text-sm text-[#555] leading-relaxed relative"
+                style={{ paddingLeft: 16, marginBottom: 20, borderLeft: "2px solid #ff9f08" }}
+              >
                 "{t.quote}"
               </blockquote>
               {/* Author */}

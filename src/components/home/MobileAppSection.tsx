@@ -7,37 +7,37 @@ function PhoneMockup({ isMain }: { isMain?: boolean }) {
       aria-hidden="true"
     >
       <div className="absolute inset-0 bg-[#1a1a2e] rounded-[2.2rem] border-[7px] border-[#2a2a4e] shadow-[0_20px_60px_rgba(0,0,0,0.45)] overflow-hidden">
-        <div className="absolute inset-0 flex flex-col gap-2 p-3 overflow-hidden" style={{ background: "linear-gradient(135deg,#730068,#5a0050)" }}>
-          <div className="flex justify-between text-[7px] text-white/50 px-1">
+        <div className="absolute inset-0 flex flex-col gap-2 overflow-hidden" style={{ background: "linear-gradient(135deg,#730068,#5a0050)", padding: 12 }}>
+          <div className="flex justify-between text-white/50" style={{ fontSize: 7, paddingLeft: 4, paddingRight: 4 }}>
             <span>9:41</span><span>●●● 5G</span>
           </div>
-          <div className="flex flex-col items-center gap-1 mb-1">
+          <div className="flex flex-col items-center gap-1" style={{ marginBottom: 4 }}>
             <div className="w-9 h-9 flex items-center justify-center" style={{ background: "#ff9f08" }}>
               <BookOpen className="w-5 h-5 text-white" />
             </div>
-            <span className="text-[8px] font-bold text-white text-center leading-tight">National Digital Library</span>
+            <span className="font-bold text-white text-center leading-tight" style={{ fontSize: 8 }}>National Digital Library</span>
           </div>
-          <div className="bg-white/15 rounded-lg px-2 py-1.5 flex items-center gap-1">
+          <div className="bg-white/15 rounded-lg flex items-center gap-1" style={{ padding: "6px 8px" }}>
             <Search className="w-2.5 h-2.5 text-white/50" />
-            <span className="text-[7px] text-white/40">Search books, journals...</span>
+            <span className="text-white/40" style={{ fontSize: 7 }}>Search books, journals...</span>
           </div>
           {[
             { color: "#ff9f08", label: "eBooks", val: "85K+" },
             { color: "#3aa04a", label: "Research", val: "180K+" },
             { color: "#1a6ebb", label: "Journals", val: "12K+" },
           ].map((c) => (
-            <div key={c.label} className="bg-white/10 rounded-lg p-2 flex items-center gap-2">
+            <div key={c.label} className="bg-white/10 rounded-lg flex items-center gap-2" style={{ padding: 8 }}>
               <div className="w-6 h-6 rounded-md flex-shrink-0" style={{ background: c.color + "40" }} />
               <div className="flex-1">
-                <div className="h-1.5 w-16 rounded bg-white/20 mb-1" />
+                <div className="h-1.5 w-16 rounded bg-white/20" style={{ marginBottom: 4 }} />
                 <div className="h-1 w-10 rounded bg-white/10" />
               </div>
-              <span className="text-[7px] font-bold text-white/70">{c.val}</span>
+              <span className="font-bold text-white/70" style={{ fontSize: 7 }}>{c.val}</span>
             </div>
           ))}
-          <div className="mt-auto flex justify-around pt-2 border-t border-white/10">
+          <div className="mt-auto flex justify-around border-t border-white/10" style={{ paddingTop: 8 }}>
             {[BookOpen, Search, Bell, Download].map((Icon, i) => (
-              <div key={i} className={`p-1 rounded-lg`} style={i === 0 ? { background: "rgba(255,159,8,0.3)" } : {}}>
+              <div key={i} className="rounded-lg" style={i === 0 ? { background: "rgba(255,159,8,0.3)", padding: 4 } : { padding: 4 }}>
                 <Icon className="w-3 h-3 text-white/60" />
               </div>
             ))}
@@ -72,21 +72,21 @@ import LayoutContainer from "@/components/ui/LayoutContainer";
 
 export default function MobileAppSection() {
   return (
-    <section id="mobile-app" className="py-16 overflow-hidden" style={{ background: "#730068" }} aria-labelledby="app-title">
+    <section id="mobile-app" style={{ background: "#730068", paddingTop: 64, paddingBottom: 64, overflow: "hidden" }} aria-labelledby="app-title">
       <LayoutContainer>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div>
-            <div className="inline-flex items-center gap-2 border border-white/30 px-4 py-1.5 text-xs text-white font-semibold tracking-wide mb-5" style={{ background: "rgba(255,159,8,0.2)" }}>
+            <div className="inline-flex items-center gap-2 border border-white/30 text-xs text-white font-semibold tracking-wide" style={{ background: "rgba(255,159,8,0.2)", padding: "6px 16px", marginBottom: 20 }}>
               Mobile Application
             </div>
-            <h2 id="app-title" className="text-2xl sm:text-3xl font-extrabold text-white mb-4 leading-tight">
+            <h2 id="app-title" className="text-2xl sm:text-3xl font-extrabold text-white leading-tight" style={{ marginBottom: 16 }}>
               Take the Library<br />Everywhere You Go
             </h2>
-            <p className="text-white/65 text-sm leading-relaxed mb-5 max-w-md">
+            <p className="text-white/65 text-sm leading-relaxed max-w-md" style={{ marginBottom: 20 }}>
               Download the official National Digital Library app — read offline, get personalised recommendations, and receive instant notifications on new resources.
             </p>
-            <ul className="flex flex-col gap-2 mb-7">
+            <ul className="flex flex-col gap-2" style={{ marginBottom: 28 }}>
               {[
                 "Download and read books offline",
                 "Smart search with voice input",
@@ -104,8 +104,8 @@ export default function MobileAppSection() {
             <div className="flex flex-wrap gap-3">
               <a
                 href="#"
-                className="flex items-center gap-3 border border-white/20 hover:border-white/50 px-4 py-3 text-white transition-all"
-                style={{ background: "rgba(255,255,255,0.1)" }}
+                className="flex items-center gap-3 border border-white/20 hover:border-white/50 text-white transition-all"
+                style={{ background: "rgba(255,255,255,0.1)", padding: "12px 16px" }}
                 aria-label="Get it on Google Play"
               >
                 <PlayStoreIcon />
@@ -116,8 +116,8 @@ export default function MobileAppSection() {
               </a>
               <a
                 href="#"
-                className="flex items-center gap-3 border border-white/20 hover:border-white/50 px-4 py-3 text-white transition-all"
-                style={{ background: "rgba(255,255,255,0.1)" }}
+                className="flex items-center gap-3 border border-white/20 hover:border-white/50 text-white transition-all"
+                style={{ background: "rgba(255,255,255,0.1)", padding: "12px 16px" }}
                 aria-label="Download on the App Store"
               >
                 <AppleIcon />
@@ -130,9 +130,9 @@ export default function MobileAppSection() {
           </div>
 
           {/* Phone mockups */}
-          <div className="hidden lg:flex items-end justify-center gap-5 pb-0">
+          <div className="hidden lg:flex items-end justify-center gap-5">
             <PhoneMockup />
-            <div className="-mb-8">
+            <div style={{ marginBottom: -32 }}>
               <PhoneMockup isMain />
             </div>
             <PhoneMockup />

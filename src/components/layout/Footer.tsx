@@ -83,11 +83,11 @@ export default function Footer() {
         aria-hidden="true"
       />
 
-      <div className="w-full max-w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] pt-10 pb-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-10">
+      <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px]" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24, paddingTop: 40 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10" style={{ marginBottom: 40 }}>
           {/* Brand */}
           <div className="lg:col-span-2 min-w-0">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3" style={{ marginBottom: 16 }}>
               <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: "#ff9f08" }}>
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
@@ -96,10 +96,10 @@ export default function Footer() {
                 <div className="text-xs" style={{ color: "#ff9f08" }}>Government of India</div>
               </div>
             </div>
-            <p className="text-xs text-white/50 leading-relaxed mb-5 max-w-xs break-words">
+            <p className="text-xs text-white/50 leading-relaxed max-w-xs break-words" style={{ marginBottom: 20 }}>
               Providing secure, equitable, and instant access to digital learning resources for students, teachers, researchers, and staff across India.
             </p>
-            <div className="flex flex-wrap gap-2 mb-5">
+            <div className="flex flex-wrap gap-2" style={{ marginBottom: 20 }}>
               {SOCIAL.map(({ icon: Icon, label, href }) => (
                 <Link
                   key={label}
@@ -113,15 +113,17 @@ export default function Footer() {
               ))}
             </div>
             <div className="flex flex-wrap gap-2">
-              <span className="text-xs border border-white/15 px-3 py-1 text-white/40 whitespace-nowrap">🇮🇳 Government of India</span>
-              <span className="text-xs border border-white/15 px-3 py-1 text-white/40 whitespace-nowrap">Digital India</span>
-              <span className="text-xs border border-white/15 px-3 py-1 text-white/40 whitespace-nowrap">NIC Certified</span>
+              {["🇮🇳 Government of India", "Digital India", "NIC Certified"].map((badge) => (
+                <span key={badge} className="text-xs border border-white/15 text-white/40 whitespace-nowrap" style={{ padding: "4px 12px" }}>
+                  {badge}
+                </span>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="min-w-0">
-            <h3 className="text-sm font-bold text-white mb-3 pb-2" style={{ borderBottom: "2px solid #ff9f08" }}>Quick Links</h3>
+            <h3 className="text-sm font-bold text-white" style={{ borderBottom: "2px solid #ff9f08", marginBottom: 12, paddingBottom: 8 }}>Quick Links</h3>
             <ul className="flex flex-col gap-1.5">
               {QUICK_LINKS.map((l) => (
                 <li key={l.label}>
@@ -136,7 +138,7 @@ export default function Footer() {
 
           {/* Resources */}
           <div className="min-w-0">
-            <h3 className="text-sm font-bold text-white mb-3 pb-2" style={{ borderBottom: "2px solid #ff9f08" }}>Digital Resources</h3>
+            <h3 className="text-sm font-bold text-white" style={{ borderBottom: "2px solid #ff9f08", marginBottom: 12, paddingBottom: 8 }}>Digital Resources</h3>
             <ul className="flex flex-col gap-1.5">
               {RESOURCES_LINKS.map((l) => (
                 <li key={l.label}>
@@ -151,7 +153,7 @@ export default function Footer() {
 
           {/* Gov Links */}
           <div className="min-w-0">
-            <h3 className="text-sm font-bold text-white mb-3 pb-2" style={{ borderBottom: "2px solid #ff9f08" }}>Important Links</h3>
+            <h3 className="text-sm font-bold text-white" style={{ borderBottom: "2px solid #ff9f08", marginBottom: 12, paddingBottom: 8 }}>Important Links</h3>
             <ul className="flex flex-col gap-1.5">
               {GOV_LINKS.map((l) => (
                 <li key={l.label}>
@@ -171,7 +173,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 py-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="border-t border-white/10 flex flex-wrap items-center justify-between gap-3" style={{ paddingTop: 16, paddingBottom: 16 }}>
           <p className="text-xs text-white/35">
             © {new Date().getFullYear()} National Digital Library Portal. Government of India. All rights reserved.
           </p>

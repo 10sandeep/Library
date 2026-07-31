@@ -14,7 +14,10 @@ interface Props {
  */
 export default function LayoutContainer({ children, className = "", as: Tag = "div" }: Props) {
   return (
-    <Tag className={`w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] ${className}`.trim()}>
+    <Tag
+      className={`w-full lg:max-w-[1320px] xl:max-w-[1440px] ${className}`.trim()}
+      style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24 }}
+    >
       {children}
     </Tag>
   );

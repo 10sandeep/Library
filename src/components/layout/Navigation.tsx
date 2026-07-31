@@ -55,9 +55,11 @@ export default function Navigation() {
           transition: "box-shadow 0.2s ease",
         }}
       >
-        {/* h-[52px] = 48px grid anchor + 4px breathing space. px-4 sm:px-6 = responsive gutter. */}
-        <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] flex items-stretch h-[52px]">
-          {/* Desktop items — flex-shrink-0 on each item keeps them at natural width; no overflow-hidden so dropdowns aren't clipped */}
+        <div
+          className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex items-stretch"
+          style={{ margin: "0 auto", paddingLeft: 16, paddingRight: 16, height: 52 }}
+        >
+          {/* Desktop items */}
           <div className="hidden lg:flex items-stretch flex-1">
             {NAV_LINKS.map((link) => (
               <div
@@ -73,12 +75,14 @@ export default function Navigation() {
                       onBlur={closeSub}
                       aria-expanded={openMenu === link.label}
                       aria-haspopup="true"
-                      className="flex items-center gap-1 px-4 h-full text-[13px] font-semibold border-r border-white/20 whitespace-nowrap"
+                      className="flex items-center gap-1 h-full text-[13px] font-semibold border-r border-white/20 whitespace-nowrap"
                       style={{
                         color: "#fff",
                         backgroundColor: isActive(link.href) ? NAV_ACTIVE : "transparent",
                         borderBottom: isActive(link.href) ? "2px solid rgba(255,255,255,0.75)" : "2px solid transparent",
                         transition: "background-color 150ms ease",
+                        paddingLeft: 16,
+                        paddingRight: 16,
                       }}
                       onMouseEnter={(e) => { if (!isActive(link.href)) e.currentTarget.style.backgroundColor = NAV_HOVER; }}
                       onMouseLeave={(e) => { if (!isActive(link.href)) e.currentTarget.style.backgroundColor = "transparent"; }}
@@ -103,13 +107,16 @@ export default function Navigation() {
                         pointerEvents: openMenu === link.label ? "auto" : "none",
                       }}
                     >
-                      <div className={link.mega ? "grid grid-cols-2 p-1" : "py-1"} style={link.mega ? { minWidth: 380 } : {}}>
+                      <div
+                        className={link.mega ? "grid grid-cols-2" : ""}
+                        style={link.mega ? { minWidth: 380, padding: 4 } : { paddingTop: 4, paddingBottom: 4 }}
+                      >
                         {link.children.map((child) => (
                           <Link
                             key={child.label}
                             href={child.href}
-                            className="block px-4 py-2.5 text-[12px] font-medium border-b border-white/8 last:border-b-0 transition-colors"
-                            style={{ color: "rgba(255,255,255,0.85)" }}
+                            className="block text-[12px] font-medium border-b border-white/8 last:border-b-0 transition-colors"
+                            style={{ color: "rgba(255,255,255,0.85)", padding: "10px 16px" }}
                             onMouseEnter={(e) => (e.currentTarget.style.background = SUB_HOVER)}
                             onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                           >
@@ -122,12 +129,14 @@ export default function Navigation() {
                 ) : (
                   <Link
                     href={link.href}
-                    className="flex items-center px-4 h-full text-[13px] font-semibold border-r border-white/20 whitespace-nowrap"
+                    className="flex items-center h-full text-[13px] font-semibold border-r border-white/20 whitespace-nowrap"
                     style={{
                       color: "#fff",
                       backgroundColor: isActive(link.href) ? NAV_ACTIVE : "transparent",
                       borderBottom: isActive(link.href) ? "2px solid rgba(255,255,255,0.75)" : "2px solid transparent",
                       transition: "background-color 150ms ease",
+                      paddingLeft: 16,
+                      paddingRight: 16,
                     }}
                     onMouseEnter={(e) => { if (!isActive(link.href)) (e.currentTarget as HTMLAnchorElement).style.backgroundColor = NAV_HOVER; }}
                     onMouseLeave={(e) => { if (!isActive(link.href)) (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent"; }}
@@ -140,11 +149,11 @@ export default function Navigation() {
           </div>
 
           {/* Login */}
-          <div className="hidden lg:flex items-center ml-auto flex-shrink-0">
+          <div className="hidden lg:flex items-center flex-shrink-0" style={{ marginLeft: "auto" }}>
             <Link
               href="/login"
-              className="flex items-center gap-1.5 font-bold text-[12px] px-6 h-full border-l border-white/25 whitespace-nowrap"
-              style={{ color: "#ff9f08", backgroundColor: "#fff", transition: "background-color 150ms ease" }}
+              className="flex items-center gap-1.5 font-bold text-[12px] h-full border-l border-white/25 whitespace-nowrap"
+              style={{ color: "#ff9f08", backgroundColor: "#fff", transition: "background-color 150ms ease", paddingLeft: 24, paddingRight: 24 }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#fff8ec"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#fff"; }}
             >
@@ -155,8 +164,8 @@ export default function Navigation() {
 
           {/* Hamburger */}
           <button
-            className="lg:hidden flex items-center justify-center w-9 h-9 ml-auto text-white self-center flex-shrink-0"
-            style={{ background: "rgba(0,0,0,0.20)", borderRadius: 4 }}
+            className="lg:hidden flex items-center justify-center w-9 h-9 text-white self-center flex-shrink-0"
+            style={{ background: "rgba(0,0,0,0.20)", borderRadius: 4, marginLeft: "auto" }}
             onClick={() => setMobileOpen(true)}
             aria-label="Open navigation menu"
             aria-expanded={mobileOpen}
@@ -177,7 +186,7 @@ export default function Navigation() {
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/20">
+          <div className="flex items-center justify-between border-b border-white/20" style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 14, paddingBottom: 14 }}>
             <span className="text-white font-extrabold text-sm">Menu</span>
             <button
               onClick={() => setMobileOpen(false)}
@@ -193,8 +202,8 @@ export default function Navigation() {
               <div key={link.label}>
                 <Link
                   href={link.href}
-                  className="block px-5 py-3 text-white font-semibold text-sm border-b border-white/15"
-                  style={{ background: isActive(link.href) ? NAV_ACTIVE : "transparent" }}
+                  className="block text-white font-semibold text-sm border-b border-white/15"
+                  style={{ padding: "12px 20px", background: isActive(link.href) ? NAV_ACTIVE : "transparent" }}
                 >
                   {link.label}
                 </Link>
@@ -204,8 +213,8 @@ export default function Navigation() {
                       <Link
                         key={child.label}
                         href={child.href}
-                        className="block px-7 py-2.5 text-[12px] font-medium border-b border-white/8"
-                        style={{ color: "rgba(255,255,255,0.75)" }}
+                        className="block text-[12px] font-medium border-b border-white/8"
+                        style={{ color: "rgba(255,255,255,0.75)", padding: "10px 28px" }}
                       >
                         {child.label}
                       </Link>
@@ -215,11 +224,11 @@ export default function Navigation() {
               </div>
             ))}
           </div>
-          <div className="p-4 border-t border-white/20">
+          <div className="border-t border-white/20" style={{ padding: 16 }}>
             <Link
               href="/login"
-              className="flex items-center justify-center gap-2 bg-white font-bold py-3 text-sm w-full"
-              style={{ color: "#ff9f08" }}
+              className="flex items-center justify-center gap-2 bg-white font-bold text-sm w-full"
+              style={{ color: "#ff9f08", padding: "12px 24px" }}
             >
               <LogIn className="w-4 h-4" />
               Member Login

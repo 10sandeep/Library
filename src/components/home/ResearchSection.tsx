@@ -1,6 +1,7 @@
 import { FlaskConical, Quote, BookMarked, FolderSearch, Library, ArrowRight } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Link from "next/link";
+import LayoutContainer from "@/components/ui/LayoutContainer";
 
 const COLORS = ["#3aa04a", "#1a6ebb", "#fea500", "#8224e3", "#730068", "#00d8ff"];
 
@@ -37,11 +38,9 @@ const ITEMS = [
   },
 ];
 
-import LayoutContainer from "@/components/ui/LayoutContainer";
-
 export default function ResearchSection() {
   return (
-    <section className="py-16" style={{ background: "#ededed" }} aria-labelledby="research-title">
+    <section style={{ background: "#ededed", paddingTop: 64, paddingBottom: 64 }} aria-labelledby="research-title">
       <LayoutContainer>
         <SectionHeader
           eyebrow="Research Support"
@@ -55,17 +54,17 @@ export default function ResearchSection() {
             return (
               <div
                 key={item.title}
-                className="bg-[#f5f5f5] border border-[#d6d6d6] p-5 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200 group"
-                style={{ borderTop: `8px solid ${color}` }}
+                className="bg-[#f5f5f5] border border-[#d6d6d6] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-200 group"
+                style={{ borderTop: `8px solid ${color}`, padding: 20 }}
               >
                 <div
-                  className="w-11 h-11 flex items-center justify-center mb-4"
-                  style={{ background: `${color}18` }}
+                  className="w-11 h-11 flex items-center justify-center"
+                  style={{ background: `${color}18`, marginBottom: 16 }}
                 >
                   <Icon className="w-5 h-5" style={{ color }} />
                 </div>
-                <h3 className="text-sm font-bold text-[#333] mb-2">{item.title}</h3>
-                <p className="text-xs text-[#666] leading-relaxed mb-4">{item.desc}</p>
+                <h3 className="text-sm font-bold text-[#333]" style={{ marginBottom: 8 }}>{item.title}</h3>
+                <p className="text-xs text-[#666] leading-relaxed" style={{ marginBottom: 16 }}>{item.desc}</p>
                 <Link
                   href="/services"
                   className="text-xs font-semibold flex items-center gap-1 transition-all group-hover:gap-2"

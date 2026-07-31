@@ -8,20 +8,18 @@ import { RESOURCES } from "@/lib/data";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
+import LayoutContainer from "@/components/ui/LayoutContainer";
 
 const ICON_MAP: Record<string, React.ElementType> = {
   BookOpen, Tablet, FileText, ClipboardList, Newspaper, BookMarked,
   GraduationCap, Building2, BarChart3, ScrollText, Headphones, Video,
 };
 
-// NIC card top-border colours — rotated through
 const TOP_BORDERS = [
   "#3aa04a", "#fea500", "#00d8ff", "#8224e3",
   "#1a6ebb", "#e53935", "#3aa04a", "#fea500",
   "#00d8ff", "#8224e3", "#1a6ebb", "#e53935",
 ];
-
-import LayoutContainer from "@/components/ui/LayoutContainer";
 
 export default function ResourcesSection() {
   const { ref, inView } = useInView(0.1);
@@ -29,8 +27,7 @@ export default function ResourcesSection() {
     <section
       id="resources"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-16"
-      style={{ background: "#e5e5e5" }}
+      style={{ background: "#e5e5e5", paddingTop: 64, paddingBottom: 64 }}
       aria-labelledby="resources-heading"
     >
       <LayoutContainer>
@@ -55,18 +52,23 @@ export default function ResourcesSection() {
                   transitionDelay: `${(i % 4) * 60}ms`,
                 }}
               >
-                {/* Icon row */}
-                <div className="px-5 pt-5 pb-3 flex items-start gap-3">
-                  <div className="w-10 h-10 rounded flex-shrink-0 flex items-center justify-center" style={{ background: `${borderColor}18` }}>
+                {/* Icon + title row */}
+                <div style={{ padding: "20px 20px 12px", display: "flex", alignItems: "flex-start", gap: 12 }}>
+                  <div
+                    className="w-10 h-10 rounded flex-shrink-0 flex items-center justify-center"
+                    style={{ background: `${borderColor}18` }}
+                  >
                     <Icon className="w-5 h-5" style={{ color: borderColor }} />
                   </div>
-                  <h3 className="font-bold text-[#222] text-sm leading-snug pt-0.5">{res.title}</h3>
+                  <h3 className="font-bold text-[#222] text-sm leading-snug" style={{ paddingTop: 2 }}>{res.title}</h3>
                 </div>
-                <div className="px-5 pb-4 flex-1">
+                {/* Description */}
+                <div style={{ padding: "0 20px 16px", flex: 1 }}>
                   <p className="text-xs text-[#666] leading-relaxed">{res.description}</p>
-                  <p className="text-xs text-[#aaa] mt-2 font-medium">{res.count} available</p>
+                  <p className="text-xs text-[#aaa] font-medium" style={{ marginTop: 8 }}>{res.count} available</p>
                 </div>
-                <div className="px-5 pb-5 border-t border-[#e8e8e8] pt-3">
+                {/* Explore link */}
+                <div style={{ padding: "12px 20px 20px", borderTop: "1px solid #e8e8e8" }}>
                   <Link
                     href="/resources"
                     className="inline-flex items-center gap-1 text-xs font-semibold group-hover:gap-2 transition-all"
@@ -79,11 +81,11 @@ export default function ResourcesSection() {
             );
           })}
         </div>
-        <div className="text-center mt-8">
+        <div style={{ textAlign: "center", marginTop: 32 }}>
           <Link
             href="/resources"
-            className="inline-flex items-center gap-2 text-sm font-bold px-6 py-2.5 border-2 rounded transition-all hover:-translate-y-0.5"
-            style={{ borderColor: "#ff9f08", color: "#ff9f08" }}
+            className="inline-flex items-center gap-2 text-sm font-bold border-2 transition-all hover:-translate-y-0.5"
+            style={{ borderColor: "#ff9f08", color: "#ff9f08", padding: "10px 24px" }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#ff9f08"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#ff9f08"; }}
           >

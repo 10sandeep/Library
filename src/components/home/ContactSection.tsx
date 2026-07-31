@@ -17,7 +17,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="py-16" style={{ background: "#e5e5e5" }} aria-labelledby="contact-title">
+    <section style={{ background: "#e5e5e5", paddingTop: 64, paddingBottom: 64 }} aria-labelledby="contact-title">
       <LayoutContainer>
         <SectionHeader
           eyebrow="Get in Touch"
@@ -28,10 +28,10 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Form */}
           <div className="bg-[#f5f5f5] border border-[#d6d6d6]" style={{ borderTop: "8px solid #ff9f08" }}>
-            <div className="p-6">
-              <h3 className="text-base font-bold text-[#333] mb-5">Send a Message</h3>
+            <div style={{ padding: 24 }}>
+              <h3 className="text-base font-bold text-[#333]" style={{ marginBottom: 20 }}>Send a Message</h3>
               {submitted ? (
-                <div className="flex flex-col items-center justify-center py-12 gap-3">
+                <div className="flex flex-col items-center justify-center gap-3" style={{ paddingTop: 48, paddingBottom: 48 }}>
                   <div className="w-14 h-14 flex items-center justify-center" style={{ background: "#3aa04a18" }}>
                     <Send className="w-7 h-7" style={{ color: "#3aa04a" }} />
                   </div>
@@ -47,7 +47,7 @@ export default function ContactSection() {
                       { id: "phone", label: "Phone Number", type: "tel", placeholder: "+91 98765 43210" },
                       { id: "dept", label: "Department", type: "text", placeholder: "Your department / faculty" },
                     ].map((f) => (
-                      <div key={f.id} className="flex flex-col gap-1.5">
+                      <div key={f.id} className="flex flex-col" style={{ gap: 6 }}>
                         <label htmlFor={f.id} className="text-xs font-bold text-[#888] uppercase tracking-wider">
                           {f.label} {f.required && <span className="text-red-500">*</span>}
                         </label>
@@ -56,19 +56,21 @@ export default function ContactSection() {
                           type={f.type}
                           placeholder={f.placeholder}
                           required={f.required}
-                          className="bg-white border border-[#ccc] px-3 py-2.5 text-sm text-[#333] placeholder-[#bbb] focus:outline-none focus:border-[#ff9f08] transition-colors"
+                          className="bg-white border border-[#ccc] text-sm text-[#333] placeholder-[#bbb] focus:outline-none focus:border-[#ff9f08] transition-colors"
+                          style={{ padding: "10px 12px" }}
                         />
                       </div>
                     ))}
                   </div>
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col" style={{ gap: 6 }}>
                     <label htmlFor="subject" className="text-xs font-bold text-[#888] uppercase tracking-wider">
                       Subject <span className="text-red-500">*</span>
                     </label>
                     <select
                       id="subject"
                       required
-                      className="bg-white border border-[#ccc] px-3 py-2.5 text-sm text-[#333] focus:outline-none focus:border-[#ff9f08] transition-colors"
+                      className="bg-white border border-[#ccc] text-sm text-[#333] focus:outline-none focus:border-[#ff9f08] transition-colors"
+                      style={{ padding: "10px 12px" }}
                     >
                       <option value="">Select a subject</option>
                       {["General Inquiry", "Membership", "Technical Support", "Resource Request", "Research Assistance", "Feedback", "Complaint"].map((o) => (
@@ -76,7 +78,7 @@ export default function ContactSection() {
                       ))}
                     </select>
                   </div>
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col" style={{ gap: 6 }}>
                     <label htmlFor="message" className="text-xs font-bold text-[#888] uppercase tracking-wider">
                       Message <span className="text-red-500">*</span>
                     </label>
@@ -85,13 +87,14 @@ export default function ContactSection() {
                       rows={4}
                       required
                       placeholder="Describe your query in detail..."
-                      className="bg-white border border-[#ccc] px-3 py-2.5 text-sm text-[#333] placeholder-[#bbb] focus:outline-none focus:border-[#ff9f08] transition-colors resize-none"
+                      className="bg-white border border-[#ccc] text-sm text-[#333] placeholder-[#bbb] focus:outline-none focus:border-[#ff9f08] transition-colors resize-none"
+                      style={{ padding: "10px 12px" }}
                     />
                   </div>
                   <button
                     type="submit"
-                    className="flex items-center justify-center gap-2 text-white font-bold py-3 text-sm transition-all hover:-translate-y-0.5"
-                    style={{ background: "#ff9f08" }}
+                    className="flex items-center justify-center gap-2 text-white font-bold text-sm transition-all hover:-translate-y-0.5"
+                    style={{ background: "#ff9f08", padding: "12px 24px" }}
                   >
                     <Send className="w-4 h-4" />
                     Send Message
@@ -111,12 +114,12 @@ export default function ContactSection() {
             ].map((info) => {
               const Icon = info.icon;
               return (
-                <div key={info.label} className="flex gap-4 items-start bg-[#f5f5f5] border border-[#d6d6d6] p-4">
+                <div key={info.label} className="flex items-start bg-[#f5f5f5] border border-[#d6d6d6]" style={{ gap: 16, padding: 16 }}>
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{ background: `${info.color}18` }}>
                     <Icon className="w-5 h-5" style={{ color: info.color }} />
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-[#888] uppercase tracking-wider mb-1">{info.label}</div>
+                    <div className="text-xs font-bold text-[#888] uppercase tracking-wider" style={{ marginBottom: 4 }}>{info.label}</div>
                     <p className="text-sm text-[#333] whitespace-pre-line leading-relaxed">{info.value}</p>
                   </div>
                 </div>
