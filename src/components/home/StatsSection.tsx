@@ -9,7 +9,7 @@ const ICONS: Record<string, React.ElementType> = {
   BookOpen, FileText, Tablet, Users, GraduationCap, Building2, Download, TrendingUp,
 };
 
-function StatItem({ value, suffix, label, icon, started }: (typeof STATS)[0] & { started: boolean }) {
+function StatItem({ value, suffix, label, icon, started, isLast }: (typeof STATS)[0] & { started: boolean; isLast: boolean }) {
   const spanRef = useRef<HTMLSpanElement>(null);
   const Icon = ICONS[icon] ?? BookOpen;
 
@@ -19,20 +19,31 @@ function StatItem({ value, suffix, label, icon, started }: (typeof STATS)[0] & {
 
   return (
     <div
-      className="flex flex-col items-center text-center border-r border-white/10 [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r sm:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(4n)]:border-r lg:last:border-r-0 hover:bg-white/6 transition-colors group cursor-default"
-      style={{ padding: "32px 16px" }}
+      className="flex flex-col items-center justify-center text-center hover:bg-white/6 transition-colors group cursor-default w-full"
+      style={{
+        padding: "40px 20px",
+        borderRight: isLast ? "none" : "1px solid rgba(255,255,255,0.12)",
+      }}
     >
       <div
-        className="w-10 h-10 flex items-center justify-center transition-colors group-hover:bg-white/20"
+        className="w-12 h-12 flex items-center justify-center transition-colors group-hover:bg-white/20"
         style={{ background: "rgba(255,255,255,0.12)", marginBottom: 12 }}
       >
-        <Icon className="w-5 h-5 text-white/55 group-hover:text-[#ff9f08] transition-colors" />
+        <Icon className="w-6 h-6 transition-colors" style={{ color: "rgba(255,255,255,0.65)" }} />
       </div>
-      <div className="text-2xl sm:text-3xl font-extrabold text-white leading-none tabular-nums" style={{ marginBottom: 4 }}>
+      <div
+        className="font-extrabold text-white leading-none tabular-nums"
+        style={{ fontSize: "clamp(1.4rem, 2.2vw, 2rem)", marginBottom: 8 }}
+      >
         <span ref={spanRef}>0</span>
         <span style={{ color: "#ff9f08" }}>{suffix}</span>
       </div>
-      <div className="text-xs font-semibold text-white/55 uppercase tracking-[0.08em] leading-tight text-center" style={{ marginTop: 6 }}>{label}</div>
+      <div
+        className="font-semibold uppercase tracking-[0.1em] leading-tight text-center"
+        style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginTop: 2 }}
+      >
+        {label}
+      </div>
     </div>
   );
 }
@@ -43,12 +54,18 @@ export default function StatsSection() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       aria-label="Library statistics"
-      style={{ background: "#730068" }}
+      style={{ background: "#730068", borderBottom: "3px solid rgba(255,255,255,0.08)" }}
     >
-      <div className="w-full mx-auto lg:max-w-[1320px] xl:max-w-[1440px]">
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8">
-          {STATS.map((s) => <StatItem key={s.label} {...s} started={inView} />)}
-        </div>
+      {/* tricolor top accent */}
+      <div
+        className="h-0.5 w-full"
+        style={{ background: "linear-gradient(to right,#FF9933 33.33%,#FFFFFF 33.33%,#FFFFFF 66.66%,#138808 66.66%)" }}
+        aria-hidden="true"
+      />
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 w-full">
+        {STATS.map((s, i) => (
+          <StatItem key={s.label} {...s} started={inView} isLast={i === STATS.length - 1} />
+        ))}
       </div>
     </section>
   );
