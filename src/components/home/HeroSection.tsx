@@ -70,22 +70,45 @@ export default function HeroSection() {
       style={{
         position: "relative",
         overflow: "hidden",
-        background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
-        transition: "background 0.8s ease",
         minHeight: 500,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
       }}
     >
-      {/* Subtle dot pattern overlay */}
+      {/* Background: Indian library photograph */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1920&q=85&auto=format&fit=crop')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          backgroundRepeat: "no-repeat",
+          transition: "opacity 0.8s ease",
+        }}
+      />
+
+      {/* Gradient colour overlay (slide-specific tint + dark base for readability) */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `linear-gradient(135deg, ${from}e8 0%, ${to}cc 60%, rgba(0,0,0,0.55) 100%)`,
+          transition: "background 0.8s ease",
+        }}
+      />
+
+      {/* Dot texture on top */}
       <div
         aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
         }}
       />
