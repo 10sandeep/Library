@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Lato } from "next/font/google";
 import "./globals.css";
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-lato",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "National Digital Library Portal — Government of India",
@@ -21,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning>
+    <html lang="en" className={`h-full ${lato.variable}`} suppressHydrationWarning>
       <body className="min-h-full antialiased" suppressHydrationWarning>
         <a href="#main-content" className="skip-link">
           Skip to main content

@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   BookOpen, Eye, EyeOff, LogIn, User, Lock, ArrowLeft,
   Shield, ShieldCheck, FileText, Globe, Smartphone, BadgeCheck,
 } from "lucide-react";
+import { authenticateStudent, saveStudentSession } from "@/lib/studentAuth";
+import { ADMIN_CREDENTIALS } from "@/lib/studentAuth";
 
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
 
@@ -37,14 +40,37 @@ const STATS = [
 ];
 
 export default function LoginPage() {
+  const router = useRouter();
   const [show,    setShow]    = useState(false);
   const [tab,     setTab]     = useState<"member" | "admin">("member");
   const [loading, setLoading] = useState(false);
+  const [error,   setError]   = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    const form = e.currentTarget;
+    const userid   = (form.elements.namedItem("userid")   as HTMLInputElement).value.trim();
+    const password = (form.elements.namedItem("password") as HTMLInputElement).value;
+
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
+    if (tab === "member") {
+      const student = authenticateStudent(userid, password);
+      if (student) {
+        saveStudentSession(student);
+        router.push("/student");
+      } else {
+        setLoading(false);
+        setError("Invalid roll number or password. Try roll no 2025001 and password 1234.");
+      }
+    } else {
+      if (userid === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+        router.push("/admin");
+      } else {
+        setLoading(false);
+        setError("Invalid admin credentials.");
+      }
+    }
   };
 
   return (
@@ -258,7 +284,7 @@ export default function LoginPage() {
                     <button key={t}
                       id={`tab-${t}`} role="tab"
                       aria-selected={tab === t} aria-controls={`panel-${t}`}
-                      onClick={() => setTab(t)}
+                      onClick={() => { setTab(t); setError(""); }}
                       style={{
                         flex: 1, padding: "10px 0", fontSize: 13, fontWeight: 600,
                         display: "flex", alignItems: "center", justifyContent: "center", gap: 7,
@@ -301,7 +327,7 @@ export default function LoginPage() {
                         <User style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", width: 15, height: 15, color: "#c8c8c8", pointerEvents: "none" }} aria-hidden="true" />
                         <input id="userid" name="userid" type="text"
                           autoComplete={tab === "member" ? "username" : "off"}
-                          placeholder={tab === "member" ? "e.g. LIB2025001" : "admin.username"}
+                          placeholder={tab === "member" ? "Roll Number (e.g. 2025001)" : "admin.username"}
                           required
                           style={{
                             width: "100%", boxSizing: "border-box",
@@ -360,6 +386,14 @@ export default function LoginPage() {
                         <input type="checkbox" name="remember" style={{ width: 15, height: 15, accentColor: "#730068", flexShrink: 0 }} />
                         <span style={{ fontSize: 13, color: "#555" }}>Keep me signed in for 30 days</span>
                       </label>
+                    )}
+
+                    {/* Error */}
+                    {error && (
+                      <div role="alert" style={{ background: "#fff0f0", border: "1px solid #f5c5c5", color: "#c0392b", fontSize: 13, padding: "10px 14px", display: "flex", alignItems: "flex-start", gap: 8 }}>
+                        <Shield style={{ width: 14, height: 14, flexShrink: 0, marginTop: 1 }} />
+                        {error}
+                      </div>
                     )}
 
                     {/* Submit */}
