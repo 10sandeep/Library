@@ -1,7 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Phone, Mail, Sun, Moon, Search, X } from "lucide-react";
-import Link from "next/link";
+import { Phone, Mail } from "lucide-react";
 
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
 
@@ -39,149 +37,7 @@ function StateEmblem() {
 }
 
 export default function GovHeader() {
-  const [dark, setDark] = useState(false);
-  const [fontSize, setFontSize] = useState(1);
-  const [lang, setLang] = useState<"en" | "hi">("en");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "dark") {
-      setDark(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleDark = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
-
-  const changeFont = (dir: "up" | "down" | "reset") => {
-    setFontSize((prev) => {
-      const next = dir === "up" ? Math.min(prev + 0.1, 1.3) : dir === "down" ? Math.max(prev - 0.1, 0.85) : 1;
-      document.documentElement.style.fontSize = `${next * 16}px`;
-      return next;
-    });
-  };
-
   return (
-    <>
-      {/* ── Utility bar ── */}
-      <div className="bg-[#f4f4f4] border-b border-[#d8d8d8]">
-        <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex flex-wrap items-center justify-between gap-y-1 min-h-[32px]" style={{ margin: "0 auto", paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
-          {/* Left: skip + breadcrumb */}
-          <div className="flex items-center gap-3 text-xs">
-            <a href="#main-content" className="text-[#444] hover:text-[#ff9f08] hover:underline transition-colors">
-              Skip to Content
-            </a>
-            <span className="text-[#ccc]">|</span>
-            <a href="#main-nav" className="text-[#444] hover:text-[#ff9f08] hover:underline transition-colors">
-              Skip to Navigation
-            </a>
-            <span className="text-[#ccc] hidden sm:inline">|</span>
-            <a href="/sitemap" className="text-[#444] hover:text-[#ff9f08] hover:underline transition-colors hidden sm:inline">
-              Sitemap
-            </a>
-          </div>
-
-          {/* Right: controls */}
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* Official badge */}
-            <span className="hidden sm:flex items-center gap-1 text-xs font-semibold text-[#138808] bg-[#138808]/8 border border-[#138808]/25 rounded" style={{ padding: "2px 8px" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#138808] pulse-dot" aria-hidden="true" />
-              Official Website
-            </span>
-
-            {/* Language */}
-            <div className="flex border border-[#ccc] rounded overflow-hidden">
-              {(["en", "hi"] as const).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  aria-pressed={lang === l}
-                  className="text-xs font-semibold transition-colors"
-                  style={{ padding: "2px 8px", ...(lang === l ? { background: "#ff9f08", color: "#fff" } : { background: "transparent", color: "#555" }) }}
-                >
-                  {l === "en" ? "EN" : "हि"}
-                </button>
-              ))}
-            </div>
-
-            {/* Text size */}
-            <div className="flex border border-[#ccc] rounded overflow-hidden">
-              {([["A-", "down"], ["A", "reset"], ["A+", "up"]] as const).map(([label, dir]) => (
-                <button
-                  key={label}
-                  onClick={() => changeFont(dir)}
-                  aria-label={`${dir === "up" ? "Increase" : dir === "down" ? "Decrease" : "Reset"} text size`}
-                  className="w-7 h-6 flex items-center justify-center text-xs font-bold text-[#555] hover:bg-[#ff9f08] hover:text-white transition-colors border-r border-[#ccc] last:border-r-0"
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            {/* Dark mode */}
-            <button
-              onClick={toggleDark}
-              aria-label="Toggle dark/light mode"
-              className="flex items-center gap-1 h-6 border border-[#ccc] rounded text-xs text-[#555] hover:bg-[#ff9f08] hover:text-white hover:border-[#ff9f08] transition-colors"
-              style={{ paddingLeft: 8, paddingRight: 8 }}
-            >
-              {dark ? <Sun className="w-3 h-3" /> : <Moon className="w-3 h-3" />}
-              {dark ? "Light" : "Dark"}
-            </button>
-
-            {/* Search */}
-            <button
-              onClick={() => setSearchOpen(!searchOpen)}
-              aria-label="Toggle site search"
-              aria-expanded={searchOpen}
-              className="flex items-center gap-1 h-6 border border-[#ccc] rounded text-xs text-[#555] hover:bg-[#ff9f08] hover:text-white hover:border-[#ff9f08] transition-colors"
-              style={{ paddingLeft: 8, paddingRight: 8 }}
-            >
-              <Search className="w-3 h-3" />
-              Search
-            </button>
-          </div>
-        </div>
-
-        {/* Inline search panel */}
-        {searchOpen && (
-          <div className="border-t border-[#d0d0d0] bg-white" style={{ paddingTop: 8, paddingBottom: 8 }}>
-            <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex gap-2" style={{ margin: "0 auto", paddingLeft: 16, paddingRight: 16 }}>
-              <input
-                type="search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search the portal..."
-                autoFocus
-                className="flex-1 border border-[#ccc] text-sm focus:outline-none focus:border-[#ff9f08] transition-colors"
-                style={{ padding: "6px 12px" }}
-              />
-              <button
-                className="text-sm font-semibold text-white transition-colors"
-                style={{ background: "#ff9f08", padding: "6px 16px" }}
-              >
-                Go
-              </button>
-              <button
-                onClick={() => setSearchOpen(false)}
-                aria-label="Close search"
-                className="w-8 flex items-center justify-center text-[#888] hover:text-[#333] border border-[#ddd]"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* ── Main header ── */}
       <header className="bg-white border-b border-[#e0e0e0] shadow-[0_1px_4px_rgba(0,0,0,0.06)]" role="banner">
         <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex items-center gap-6" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16 }}>
           {/* State Emblem */}
@@ -239,6 +95,5 @@ export default function GovHeader() {
           </div>
         </div>
       </header>
-    </>
   );
 }
