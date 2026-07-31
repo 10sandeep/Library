@@ -62,7 +62,7 @@ export default function StatsSection() {
         style={{ background: "linear-gradient(to right,#FF9933 33.33%,#FFFFFF 33.33%,#FFFFFF 66.66%,#138808 66.66%)" }}
         aria-hidden="true"
       />
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 w-full">
+      <div style={{ display: "grid", gridTemplateColumns: `repeat(${STATS.length}, minmax(0, 1fr))`, width: "100%" }}>
         {STATS.map((s, i) => (
           <StatItem key={s.label} {...s} started={inView} isLast={i === STATS.length - 1} />
         ))}

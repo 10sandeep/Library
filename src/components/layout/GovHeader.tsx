@@ -104,8 +104,7 @@ export default function GovHeader() {
                   onClick={() => setLang(l)}
                   aria-pressed={lang === l}
                   className="text-xs font-semibold transition-colors"
-                  style={{ padding: "2px 8px" }}
-                  style={lang === l ? { background: "#ff9f08", color: "#fff" } : { background: "transparent", color: "#555" }}
+                  style={{ padding: "2px 8px", ...(lang === l ? { background: "#ff9f08", color: "#fff" } : { background: "transparent", color: "#555" }) }}
                 >
                   {l === "en" ? "EN" : "हि"}
                 </button>
