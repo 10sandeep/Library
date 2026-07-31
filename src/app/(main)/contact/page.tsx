@@ -9,14 +9,14 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <main className="min-h-screen" style={{ background: "#ededed" }}>
-      <div className="py-12" style={{ background: "#730068" }}>
-        <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px]">
-          <div className="text-white/50 text-xs mb-2 flex items-center gap-2">
+      <div style={{ background: "#730068", paddingTop: 48, paddingBottom: 48 }}>
+        <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px]" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24 }}>
+          <div className="text-white/50 text-xs flex items-center gap-2" style={{ marginBottom: 8 }}>
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <span className="text-white">Contact</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Contact Us</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white" style={{ marginBottom: 8 }}>Contact Us</h1>
           <p className="text-white/60 text-sm max-w-xl">
             Have a question, feedback, or need research assistance? Our team is here to help.
           </p>

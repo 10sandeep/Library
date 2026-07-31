@@ -11,7 +11,8 @@ export default function AnnouncementTicker() {
     >
       {/* Label */}
       <div
-        className="flex-shrink-0 flex items-center justify-center px-5 text-xs font-extrabold tracking-widest uppercase text-white bg-[#ff9f08] min-w-[88px]"
+        className="flex-shrink-0 flex items-center justify-center text-xs font-extrabold tracking-widest uppercase text-white bg-[#ff9f08] min-w-[88px]"
+        style={{ paddingLeft: 20, paddingRight: 20 }}
         aria-hidden="true"
       >
         Latest

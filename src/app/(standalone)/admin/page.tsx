@@ -55,7 +55,10 @@ export default function AdminPage() {
         aria-label="Admin sidebar navigation"
       >
         {/* Logo */}
-        <div className={`flex items-center gap-3 p-4 border-b border-white/15 ${!sidebarOpen && "justify-center"}`}>
+        <div
+          className={`flex items-center gap-3 border-b border-white/15 ${!sidebarOpen ? "justify-center" : ""}`}
+          style={{ padding: 16 }}
+        >
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "#ff9f08" }}>
             <Shield className="w-4 h-4 text-white" />
           </div>
@@ -68,7 +71,11 @@ export default function AdminPage() {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto py-3 px-2" aria-label="Admin navigation">
+        <nav
+          className="flex-1 overflow-y-auto"
+          style={{ paddingTop: 12, paddingBottom: 12, paddingLeft: 8, paddingRight: 8 }}
+          aria-label="Admin navigation"
+        >
           {SIDEBAR_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.label;
@@ -76,10 +83,10 @@ export default function AdminPage() {
               <button
                 key={item.label}
                 onClick={() => setActiveItem(item.label)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 mb-0.5 transition-all text-left ${
+                className={`w-full flex items-center gap-3 transition-all text-left ${
                   isActive ? "text-white" : "text-white/55 hover:text-white/85"
-                } ${!sidebarOpen && "justify-center"}`}
-                style={isActive ? { background: "rgba(255,159,8,0.25)" } : {}}
+                } ${!sidebarOpen ? "justify-center" : ""}`}
+                style={{ padding: "10px 12px", marginBottom: 2, ...(isActive ? { background: "rgba(255,159,8,0.25)" } : {}) }}
                 aria-current={isActive ? "page" : undefined}
                 title={!sidebarOpen ? item.label : undefined}
               >
@@ -88,7 +95,7 @@ export default function AdminPage() {
                   <span className="text-sm font-medium truncate">{item.label}</span>
                 )}
                 {sidebarOpen && isActive && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#ff9f08" }} />
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#ff9f08", marginLeft: "auto" }} />
                 )}
               </button>
             );
@@ -96,8 +103,14 @@ export default function AdminPage() {
         </nav>
 
         {/* Logout */}
-        <div className={`p-3 border-t border-white/15 ${!sidebarOpen && "flex justify-center"}`}>
-          <button className={`flex items-center gap-3 px-3 py-2.5 text-white/50 hover:bg-red-500/15 hover:text-red-300 transition-all w-full ${!sidebarOpen && "justify-center"}`}>
+        <div
+          className={`border-t border-white/15 ${!sidebarOpen ? "flex justify-center" : ""}`}
+          style={{ padding: 12 }}
+        >
+          <button
+            className={`flex items-center gap-3 text-white/50 hover:bg-red-500/15 hover:text-red-300 transition-all w-full ${!sidebarOpen ? "justify-center" : ""}`}
+            style={{ padding: "10px 12px" }}
+          >
             <LogOut className="w-4 h-4 flex-shrink-0" />
             {sidebarOpen && <span className="text-sm">Sign Out</span>}
           </button>
@@ -107,7 +120,10 @@ export default function AdminPage() {
       {/* Main */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="h-14 bg-white border-b border-[#d6d6d6] flex items-center justify-between px-6 flex-shrink-0">
+        <header
+          className="h-14 bg-white border-b border-[#d6d6d6] flex items-center justify-between flex-shrink-0"
+          style={{ paddingLeft: 24, paddingRight: 24 }}
+        >
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -125,14 +141,15 @@ export default function AdminPage() {
                 type="search"
                 placeholder="Search..."
                 aria-label="Search admin panel"
-                className="bg-[#f5f5f5] border border-[#d6d6d6] pl-9 pr-4 py-1.5 text-sm text-[#333] placeholder-[#bbb]/70 focus:outline-none focus:border-[#ff9f08] w-44 transition-colors"
+                className="bg-[#f5f5f5] border border-[#d6d6d6] text-sm text-[#333] placeholder-[#bbb]/70 focus:outline-none focus:border-[#ff9f08] w-44 transition-colors"
+                style={{ paddingLeft: 36, paddingRight: 16, paddingTop: 6, paddingBottom: 6 }}
               />
             </div>
             <button aria-label="Notifications" className="relative w-9 h-9 bg-[#f5f5f5] border border-[#d6d6d6] flex items-center justify-center text-[#888] hover:text-[#333]">
               <Bell className="w-4 h-4" />
               <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] flex items-center justify-center font-bold">3</span>
             </button>
-            <div className="flex items-center gap-2 bg-[#f5f5f5] border border-[#d6d6d6] px-3 py-1.5">
+            <div className="flex items-center gap-2 bg-[#f5f5f5] border border-[#d6d6d6]" style={{ padding: "6px 12px" }}>
               <div className="w-6 h-6 flex items-center justify-center" style={{ background: "#730068" }}>
                 <span className="text-white text-[9px] font-bold">SA</span>
               </div>
@@ -142,24 +159,24 @@ export default function AdminPage() {
         </header>
 
         {/* Content */}
-        <main className="flex-1 overflow-y-auto p-6" id="admin-main">
+        <main className="flex-1 overflow-y-auto" style={{ padding: 24 }} id="admin-main">
           {/* Stat cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4" style={{ marginBottom: 20 }}>
             {STAT_CARDS.map((card) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.label}
-                  className="bg-white border border-[#d6d6d6] p-4"
-                  style={{ borderTop: `6px solid ${card.color}` }}
+                  className="bg-white border border-[#d6d6d6]"
+                  style={{ borderTop: `6px solid ${card.color}`, padding: 16 }}
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center justify-between" style={{ marginBottom: 12 }}>
                     <span className="text-xs text-[#888] font-medium">{card.label}</span>
                     <div className="w-9 h-9 flex items-center justify-center" style={{ background: `${card.color}18` }}>
                       <Icon className="w-4 h-4" style={{ color: card.color }} />
                     </div>
                   </div>
-                  <div className="text-2xl font-extrabold text-[#333] mb-1 tabular-nums">{card.value}</div>
+                  <div className="text-2xl font-extrabold text-[#333] tabular-nums" style={{ marginBottom: 4 }}>{card.value}</div>
                   <div className="text-xs font-medium flex items-center gap-1" style={{ color: card.color === "#e53935" ? "#e53935" : "#3aa04a" }}>
                     <TrendingUp className="w-3 h-3" />
                     {card.change}
@@ -172,7 +189,10 @@ export default function AdminPage() {
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
             {/* Recent Books Table */}
             <div className="xl:col-span-2 bg-white border border-[#d6d6d6] overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-3 border-b border-[#e0e0e0]" style={{ borderTop: "4px solid #ff9f08" }}>
+              <div
+                className="flex items-center justify-between border-b border-[#e0e0e0]"
+                style={{ borderTop: "4px solid #ff9f08", padding: "12px 20px" }}
+              >
                 <h2 className="font-bold text-[#333] text-sm">Recently Added Books</h2>
                 <button className="flex items-center gap-1.5 text-xs font-semibold hover:underline" style={{ color: "#ff6600" }}>
                   <Plus className="w-3.5 h-3.5" /> Add Book
@@ -183,31 +203,32 @@ export default function AdminPage() {
                   <thead>
                     <tr style={{ background: "#f5f5f5" }}>
                       {["Title", "Author", "Dept", "Status", "Date", "Actions"].map((h) => (
-                        <th key={h} className="text-left px-4 py-3 text-xs font-bold text-[#888] uppercase tracking-wider">{h}</th>
+                        <th key={h} className="text-left text-xs font-bold text-[#888] uppercase tracking-wider" style={{ padding: "12px 16px" }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#f0f0f0]">
                     {RECENT_BOOKS.map((book, i) => (
                       <tr key={i} className="hover:bg-[#fafafa] transition-colors">
-                        <td className="px-4 py-3 font-semibold text-[#333] max-w-[180px] truncate">{book.title}</td>
-                        <td className="px-4 py-3 text-[#777] whitespace-nowrap text-xs">{book.author}</td>
-                        <td className="px-4 py-3">
-                          <span className="text-xs font-bold px-2 py-0.5" style={{ background: "#730068" + "18", color: "#730068" }}>{book.dept}</span>
+                        <td className="font-semibold text-[#333] max-w-[180px] truncate" style={{ padding: "12px 16px" }}>{book.title}</td>
+                        <td className="text-[#777] whitespace-nowrap text-xs" style={{ padding: "12px 16px" }}>{book.author}</td>
+                        <td style={{ padding: "12px 16px" }}>
+                          <span className="text-xs font-bold" style={{ background: "#730068" + "18", color: "#730068", padding: "2px 8px" }}>{book.dept}</span>
                         </td>
-                        <td className="px-4 py-3">
+                        <td style={{ padding: "12px 16px" }}>
                           <span
-                            className="text-xs font-bold px-2 py-0.5 capitalize"
+                            className="text-xs font-bold capitalize"
                             style={{
                               background: STATUS_STYLES[book.status]?.bg ?? "#f0f0f0",
                               color: STATUS_STYLES[book.status]?.text ?? "#555",
+                              padding: "2px 8px",
                             }}
                           >
                             {book.status}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-[#999] whitespace-nowrap text-xs">{book.date}</td>
-                        <td className="px-4 py-3">
+                        <td className="text-[#999] whitespace-nowrap text-xs" style={{ padding: "12px 16px" }}>{book.date}</td>
+                        <td style={{ padding: "12px 16px" }}>
                           <div className="flex gap-1">
                             <button aria-label="View book" className="w-7 h-7 bg-[#f5f5f5] border border-[#e0e0e0] flex items-center justify-center text-[#888] hover:text-[#1a6ebb] transition-colors">
                               <Eye className="w-3.5 h-3.5" />
@@ -230,8 +251,8 @@ export default function AdminPage() {
             {/* Side panels */}
             <div className="flex flex-col gap-4">
               {/* System Status */}
-              <div className="bg-white border border-[#d6d6d6] p-4" style={{ borderTop: "4px solid #3aa04a" }}>
-                <h2 className="font-bold text-[#333] text-sm mb-4 flex items-center gap-2">
+              <div className="bg-white border border-[#d6d6d6]" style={{ borderTop: "4px solid #3aa04a", padding: 16 }}>
+                <h2 className="font-bold text-[#333] text-sm flex items-center gap-2" style={{ marginBottom: 16 }}>
                   <Activity className="w-4 h-4" style={{ color: "#3aa04a" }} />
                   System Status
                 </h2>
@@ -255,8 +276,8 @@ export default function AdminPage() {
               </div>
 
               {/* Pending actions */}
-              <div className="bg-white border border-[#d6d6d6] p-4" style={{ borderTop: "4px solid #fea500" }}>
-                <h2 className="font-bold text-[#333] text-sm mb-4 flex items-center gap-2">
+              <div className="bg-white border border-[#d6d6d6]" style={{ borderTop: "4px solid #fea500", padding: 16 }}>
+                <h2 className="font-bold text-[#333] text-sm flex items-center gap-2" style={{ marginBottom: 16 }}>
                   <Clock className="w-4 h-4" style={{ color: "#fea500" }} />
                   Pending Actions
                 </h2>
@@ -267,10 +288,10 @@ export default function AdminPage() {
                     { label: "Resource reports", count: 8, color: "#1a6ebb" },
                     { label: "System alerts", count: 3, color: "#3aa04a" },
                   ].map((p) => (
-                    <button key={p.label} className="flex items-center justify-between p-2 hover:bg-[#f5f5f5] transition-colors group w-full text-left">
+                    <button key={p.label} className="flex items-center justify-between hover:bg-[#f5f5f5] transition-colors group w-full text-left" style={{ padding: 8 }}>
                       <span className="text-xs text-[#444]">{p.label}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold px-2 py-0.5" style={{ background: `${p.color}18`, color: p.color }}>{p.count}</span>
+                        <span className="text-xs font-bold" style={{ background: `${p.color}18`, color: p.color, padding: "2px 8px" }}>{p.count}</span>
                         <ChevronRight className="w-3.5 h-3.5 text-[#ccc] opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
                     </button>
@@ -279,12 +300,12 @@ export default function AdminPage() {
               </div>
 
               {/* Security */}
-              <div className="p-4" style={{ background: "#730068" }}>
-                <div className="flex items-center gap-2 mb-2">
+              <div style={{ background: "#730068", padding: 16 }}>
+                <div className="flex items-center gap-2" style={{ marginBottom: 8 }}>
                   <Lock className="w-4 h-4" style={{ color: "#ff9f08" }} />
                   <span className="text-white text-sm font-bold">Security Center</span>
                 </div>
-                <p className="text-white/50 text-xs mb-3">Last security scan: 2 hours ago</p>
+                <p className="text-white/50 text-xs" style={{ marginBottom: 12 }}>Last security scan: 2 hours ago</p>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4" style={{ color: "#3aa04a" }} />
                   <span className="text-xs text-white/70">No threats detected</span>

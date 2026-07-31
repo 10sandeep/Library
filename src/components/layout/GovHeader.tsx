@@ -72,7 +72,7 @@ export default function GovHeader() {
     <>
       {/* ── Utility bar ── */}
       <div className="bg-[#f4f4f4] border-b border-[#d8d8d8]">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] flex flex-wrap items-center justify-between gap-y-1 py-1 min-h-[32px]">
+        <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex flex-wrap items-center justify-between gap-y-1 min-h-[32px]" style={{ margin: "0 auto", paddingLeft: 16, paddingRight: 16, paddingTop: 4, paddingBottom: 4 }}>
           {/* Left: skip + breadcrumb */}
           <div className="flex items-center gap-3 text-xs">
             <a href="#main-content" className="text-[#444] hover:text-[#ff9f08] hover:underline transition-colors">
@@ -91,7 +91,7 @@ export default function GovHeader() {
           {/* Right: controls */}
           <div className="flex items-center gap-2 flex-wrap">
             {/* Official badge */}
-            <span className="hidden sm:flex items-center gap-1 text-xs font-semibold text-[#138808] bg-[#138808]/8 border border-[#138808]/25 px-2 py-0.5 rounded">
+            <span className="hidden sm:flex items-center gap-1 text-xs font-semibold text-[#138808] bg-[#138808]/8 border border-[#138808]/25 rounded" style={{ padding: "2px 8px" }}>
               <span className="w-1.5 h-1.5 rounded-full bg-[#138808] pulse-dot" aria-hidden="true" />
               Official Website
             </span>
@@ -103,7 +103,8 @@ export default function GovHeader() {
                   key={l}
                   onClick={() => setLang(l)}
                   aria-pressed={lang === l}
-                  className="px-2 py-0.5 text-xs font-semibold transition-colors"
+                  className="text-xs font-semibold transition-colors"
+                  style={{ padding: "2px 8px" }}
                   style={lang === l ? { background: "#ff9f08", color: "#fff" } : { background: "transparent", color: "#555" }}
                 >
                   {l === "en" ? "EN" : "हि"}
@@ -129,7 +130,8 @@ export default function GovHeader() {
             <button
               onClick={toggleDark}
               aria-label="Toggle dark/light mode"
-              className="flex items-center gap-1 px-2 h-6 border border-[#ccc] rounded text-xs text-[#555] hover:bg-[#ff9f08] hover:text-white hover:border-[#ff9f08] transition-colors"
+              className="flex items-center gap-1 h-6 border border-[#ccc] rounded text-xs text-[#555] hover:bg-[#ff9f08] hover:text-white hover:border-[#ff9f08] transition-colors"
+              style={{ paddingLeft: 8, paddingRight: 8 }}
             >
               {dark ? <Sun className="w-3 h-3" /> : <Moon className="w-3 h-3" />}
               {dark ? "Light" : "Dark"}
@@ -140,7 +142,8 @@ export default function GovHeader() {
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Toggle site search"
               aria-expanded={searchOpen}
-              className="flex items-center gap-1 px-2 h-6 border border-[#ccc] rounded text-xs text-[#555] hover:bg-[#ff9f08] hover:text-white hover:border-[#ff9f08] transition-colors"
+              className="flex items-center gap-1 h-6 border border-[#ccc] rounded text-xs text-[#555] hover:bg-[#ff9f08] hover:text-white hover:border-[#ff9f08] transition-colors"
+              style={{ paddingLeft: 8, paddingRight: 8 }}
             >
               <Search className="w-3 h-3" />
               Search
@@ -150,19 +153,20 @@ export default function GovHeader() {
 
         {/* Inline search panel */}
         {searchOpen && (
-          <div className="border-t border-[#d0d0d0] bg-white py-2">
-            <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] flex gap-2">
+          <div className="border-t border-[#d0d0d0] bg-white" style={{ paddingTop: 8, paddingBottom: 8 }}>
+            <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex gap-2" style={{ margin: "0 auto", paddingLeft: 16, paddingRight: 16 }}>
               <input
                 type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search the portal..."
                 autoFocus
-                className="flex-1 border border-[#ccc] px-3 py-1.5 text-sm focus:outline-none focus:border-[#ff9f08] transition-colors"
+                className="flex-1 border border-[#ccc] text-sm focus:outline-none focus:border-[#ff9f08] transition-colors"
+                style={{ padding: "6px 12px" }}
               />
               <button
-                className="px-4 py-1.5 text-sm font-semibold text-white transition-colors"
-                style={{ background: "#ff9f08" }}
+                className="text-sm font-semibold text-white transition-colors"
+                style={{ background: "#ff9f08", padding: "6px 16px" }}
               >
                 Go
               </button>
@@ -180,7 +184,7 @@ export default function GovHeader() {
 
       {/* ── Main header ── */}
       <header className="bg-white border-b border-[#e0e0e0] shadow-[0_1px_4px_rgba(0,0,0,0.06)]" role="banner">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] py-4 flex items-center gap-6">
+        <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px] flex items-center gap-6" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24, paddingTop: 16, paddingBottom: 16 }}>
           {/* State Emblem */}
           <div className="flex-shrink-0">
             <StateEmblem />
@@ -191,13 +195,13 @@ export default function GovHeader() {
 
           {/* Institution identity */}
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-[#888] uppercase tracking-wider leading-none mb-1.5">
+            <p className="text-xs font-medium text-[#888] uppercase tracking-wider leading-none" style={{ marginBottom: 6 }}>
               Ministry of Education &nbsp;·&nbsp; Government of India &nbsp;·&nbsp; Digital India
             </p>
             <h1 className="text-lg sm:text-2xl font-extrabold leading-tight" style={{ color: "#730068" }}>
               National Digital Library Portal
             </h1>
-            <p className="text-sm text-[#555] font-medium leading-none mt-1">
+            <p className="text-sm text-[#555] font-medium leading-none" style={{ marginTop: 4 }}>
               राष्ट्रीय डिजिटल पुस्तकालय पोर्टल
             </p>
           </div>

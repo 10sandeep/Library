@@ -21,35 +21,35 @@ export default function ResourcesPage() {
   return (
     <main className="min-h-screen" style={{ background: "#ededed" }}>
       {/* Page header */}
-      <div className="py-12" style={{ background: "#730068" }}>
-        <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px]">
-          <div className="text-white/50 text-xs mb-2 flex items-center gap-2">
+      <div style={{ background: "#730068", paddingTop: 48, paddingBottom: 48 }}>
+        <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px]" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24 }}>
+          <div className="text-white/50 text-xs flex items-center gap-2" style={{ marginBottom: 8 }}>
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
             <span className="text-white">Digital Resources</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Digital Resources</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white" style={{ marginBottom: 8 }}>Digital Resources</h1>
           <p className="text-white/60 text-sm max-w-xl">
             Explore our complete collection of books, journals, research papers, thesis, and more across all academic disciplines.
           </p>
         </div>
       </div>
 
-      <div className="w-full mx-auto px-4 sm:px-6 lg:max-w-[1320px] xl:max-w-[1440px] py-8">
+      <div className="w-full lg:max-w-[1320px] xl:max-w-[1440px]" style={{ margin: "0 auto", paddingLeft: 24, paddingRight: 24, paddingTop: 32, paddingBottom: 32 }}>
         {/* Controls */}
-        <div className="flex flex-wrap gap-3 items-center justify-between mb-5">
+        <div className="flex flex-wrap gap-3 items-center justify-between" style={{ marginBottom: 20 }}>
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
                 className={cn(
-                  "px-3 py-1 text-xs font-semibold border-2 transition-all",
+                  "text-xs font-semibold border-2 transition-all",
                   category === cat
                     ? "text-white border-[#ff9f08]"
                     : "border-[#ccc] text-[#555] hover:border-[#ff9f08] bg-white"
                 )}
-                style={category === cat ? { background: "#ff9f08" } : {}}
+                style={{ padding: "4px 12px", ...(category === cat ? { background: "#ff9f08" } : {}) }}
               >
                 {cat}
               </button>
@@ -63,7 +63,8 @@ export default function ResourcesPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Filter resources..."
-                className="bg-white border border-[#d6d6d6] pl-9 pr-4 py-2 text-sm text-[#333] placeholder-[#ccc] focus:outline-none focus:border-[#ff9f08] w-48 transition-colors"
+                className="bg-white border border-[#d6d6d6] text-sm text-[#333] placeholder-[#ccc] focus:outline-none focus:border-[#ff9f08] w-48 transition-colors"
+                style={{ paddingLeft: 36, paddingRight: 16, paddingTop: 8, paddingBottom: 8 }}
               />
             </div>
             <button
@@ -85,7 +86,7 @@ export default function ResourcesPage() {
           </div>
         </div>
 
-        <p className="text-xs text-[#888] mb-5">{filtered.length} collections found</p>
+        <p className="text-xs text-[#888]" style={{ marginBottom: 20 }}>{filtered.length} collections found</p>
 
         {view === "grid" ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -100,12 +101,12 @@ export default function ResourcesPage() {
                   <div className="h-20 flex items-center justify-center" style={{ background: `${color}12` }}>
                     <BookOpen className="w-8 h-8" style={{ color: `${color}80` }} />
                   </div>
-                  <div className="p-4 flex-1">
-                    <h2 className="font-bold text-sm text-[#333] mb-1">{res.title}</h2>
-                    <p className="text-xs text-[#777] mb-2 line-clamp-2">{res.description}</p>
+                  <div className="flex-1" style={{ padding: 16 }}>
+                    <h2 className="font-bold text-sm text-[#333]" style={{ marginBottom: 4 }}>{res.title}</h2>
+                    <p className="text-xs text-[#777] line-clamp-2" style={{ marginBottom: 8 }}>{res.description}</p>
                     <p className="text-xs text-[#999]">{res.count}</p>
                   </div>
-                  <div className="px-4 py-3 border-t border-[#e0e0e0] flex items-center justify-between">
+                  <div className="border-t border-[#e0e0e0] flex items-center justify-between" style={{ padding: "12px 16px" }}>
                     <Link href="/resources" className="text-xs font-semibold flex items-center gap-1 hover:gap-2 transition-all" style={{ color: "#ff6600" }}>
                       Explore <ArrowRight className="w-3 h-3" />
                     </Link>
@@ -121,13 +122,14 @@ export default function ResourcesPage() {
               return (
                 <div
                   key={res.id}
-                  className="bg-[#f5f5f5] border border-[#d6d6d6] p-4 flex items-center gap-4 hover:border-[#ff9f08] hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all"
+                  className="bg-[#f5f5f5] border border-[#d6d6d6] flex items-center gap-4 hover:border-[#ff9f08] hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all"
+                  style={{ padding: 16 }}
                 >
                   <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: `${color}18` }}>
                     <BookOpen className="w-6 h-6" style={{ color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="font-bold text-sm text-[#333] mb-0.5">{res.title}</h2>
+                    <h2 className="font-bold text-sm text-[#333]" style={{ marginBottom: 2 }}>{res.title}</h2>
                     <p className="text-xs text-[#777] line-clamp-1">{res.description}</p>
                   </div>
                   <div className="flex items-center gap-4 flex-shrink-0">
