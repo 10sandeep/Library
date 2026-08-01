@@ -91,11 +91,12 @@ export default function StatsSection() {
         aria-hidden="true"
       />
 
-      {/* Mobile: 2 cols. Desktop (≥640px): 8 cols — same as original */}
-      <div
-        style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}
-        className="sm:grid-cols-8"
-      >
+      {/* Mobile: 2 cols. Desktop (≥640px): 8 cols — media query wins over inline style conflict */}
+      <style>{`
+        .stats-grid { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        @media (min-width: 640px) { .stats-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+      `}</style>
+      <div className="stats-grid">
         {STATS.map((s, i) => (
           <StatItem
             key={s.label}
