@@ -9,7 +9,7 @@ const ICONS: Record<string, React.ElementType> = {
   BookOpen, FileText, Tablet, Users, GraduationCap, Building2, Download, TrendingUp,
 };
 
-function StatItem({ value, suffix, label, icon, started, index, total }: (typeof STATS)[0] & { started: boolean; index: number; total: number }) {
+function StatItem({ value, suffix, label, icon, started, isLast, index, total }: (typeof STATS)[0] & { started: boolean; isLast: boolean; index: number; total: number }) {
   const spanRef = useRef<HTMLSpanElement>(null);
   const Icon = ICONS[icon] ?? BookOpen;
 
@@ -17,23 +17,16 @@ function StatItem({ value, suffix, label, icon, started, index, total }: (typeof
     if (started && spanRef.current) animateCounter(spanRef.current, value, 2200);
   }, [started, value]);
 
-  // On desktop (4 cols × 2 rows): right border except last in each row; no bottom border on first row
-  // We let CSS grid handle layout; borders are set via className so media queries work
-  const isLastInRow2Col  = index % 2 === 1;   // rightmost in 2-col grid
-  const isLastInRow4Col  = index % 4 === 3;   // rightmost in 4-col grid
-  const isLastInRow8Col  = index % 8 === 7;   // rightmost in 8-col grid (desktop single row)
-  const isBottomRow2Col  = index >= total - 2; // bottom row in 2-col
-  const isBottomRow4Col  = index >= total - 4; // bottom row in 4-col
+  // Mobile 2-col borders
+  const isLastInRow2 = index % 2 === 1;        // right column → no right border
+  const isLastRow2   = index >= total - 2;      // last 2 items → no bottom border
 
   return (
     <div
       className="stat-item flex flex-col items-center justify-center text-center hover:bg-white/6 transition-colors group cursor-default w-full"
-      data-idx={index}
-      data-last2={isLastInRow2Col}
-      data-last4={isLastInRow4Col}
-      data-last8={isLastInRow8Col}
-      data-bottom2={isBottomRow2Col}
-      data-bottom4={isBottomRow4Col}
+      data-last2={isLastInRow2}
+      data-lastrow2={isLastRow2}
+      data-desktop-last={isLast}
     >
       <div
         className="flex items-center justify-center transition-colors group-hover:bg-white/20"
@@ -43,43 +36,40 @@ function StatItem({ value, suffix, label, icon, started, index, total }: (typeof
       </div>
       <div
         className="font-extrabold text-white leading-none tabular-nums"
-        style={{ fontSize: "clamp(1.25rem, 3vw, 1.9rem)", marginBottom: 8 }}
+        style={{ fontSize: "clamp(1.4rem, 2.2vw, 2rem)", marginBottom: 8 }}
       >
         <span ref={spanRef}>0</span>
         <span style={{ color: "#ff9f08" }}>{suffix}</span>
       </div>
       <div
-        className="font-semibold uppercase leading-tight text-center"
-        style={{ fontSize: 11, letterSpacing: "0.09em", color: "rgba(255,255,255,0.5)", marginTop: 2 }}
+        className="font-semibold uppercase tracking-[0.1em] leading-tight text-center"
+        style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginTop: 2 }}
       >
         {label}
       </div>
 
       <style>{`
+        /* ── Mobile: 2-column grid ─────────────────────────── */
         .stat-item {
-          padding: 28px 16px;
-          border-right: 1px solid rgba(255,255,255,0.12);
+          padding: 32px 16px;
+          border-right:  1px solid rgba(255,255,255,0.12);
           border-bottom: 1px solid rgba(255,255,255,0.12);
         }
-        /* 2-col: remove right border on col 2, remove bottom border on last row */
-        .stat-item[data-last2="true"]   { border-right: none; }
-        .stat-item[data-bottom2="true"] { border-bottom: none; }
+        .stat-item[data-last2="true"]    { border-right: none; }
+        .stat-item[data-lastrow2="true"] { border-bottom: none; }
 
+        /* ── Desktop: 8-column row — identical to original ── */
         @media (min-width: 640px) {
-          .stat-item { padding: 32px 18px; }
-          /* 4-col: remove right border on col 4, remove bottom on last row */
-          .stat-item[data-last2="true"]   { border-right: 1px solid rgba(255,255,255,0.12); }
-          .stat-item[data-last4="true"]   { border-right: none; }
-          .stat-item[data-bottom2="true"] { border-bottom: 1px solid rgba(255,255,255,0.12); }
-          .stat-item[data-bottom4="true"] { border-bottom: none; }
-        }
-
-        @media (min-width: 1024px) {
-          .stat-item { padding: 40px 20px; }
-          /* 8-col single row: remove right border on last, no bottom borders */
-          .stat-item[data-last4="true"]   { border-right: 1px solid rgba(255,255,255,0.12); }
-          .stat-item[data-last8="true"]   { border-right: none; }
-          .stat-item[data-bottom4="true"] { border-bottom: none; }
+          .stat-item {
+            padding: 40px 20px;
+            border-right:  1px solid rgba(255,255,255,0.12);
+            border-bottom: none;
+          }
+          .stat-item[data-desktop-last="true"] { border-right: none; }
+          /* undo mobile overrides */
+          .stat-item[data-last2="true"]    { border-right: 1px solid rgba(255,255,255,0.12); }
+          .stat-item[data-lastrow2="true"] { border-bottom: none; }
+          .stat-item[data-last2="true"][data-desktop-last="true"] { border-right: none; }
         }
       `}</style>
     </div>
@@ -94,15 +84,27 @@ export default function StatsSection() {
       aria-label="Library statistics"
       style={{ background: "#730068", borderBottom: "3px solid rgba(255,255,255,0.08)" }}
     >
+      {/* tricolor top accent */}
       <div
-        style={{ height: 2, width: "100%", background: "linear-gradient(to right,#FF9933 33.33%,#FFFFFF 33.33%,#FFFFFF 66.66%,#138808 66.66%)" }}
+        className="h-0.5 w-full"
+        style={{ background: "linear-gradient(to right,#FF9933 33.33%,#FFFFFF 33.33%,#FFFFFF 66.66%,#138808 66.66%)" }}
         aria-hidden="true"
       />
-      {/* 2-col mobile → 4-col tablet → 8-col desktop */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", width: "100%" }}
-        className="sm:grid-cols-4 lg:grid-cols-8">
+
+      {/* Mobile: 2 cols. Desktop (≥640px): 8 cols — same as original */}
+      <div
+        style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}
+        className="sm:grid-cols-8"
+      >
         {STATS.map((s, i) => (
-          <StatItem key={s.label} {...s} started={inView} index={i} total={STATS.length} />
+          <StatItem
+            key={s.label}
+            {...s}
+            started={inView}
+            isLast={i === STATS.length - 1}
+            index={i}
+            total={STATS.length}
+          />
         ))}
       </div>
     </section>
